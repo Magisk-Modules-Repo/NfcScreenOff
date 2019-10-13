@@ -7,3 +7,7 @@
 MODDIR=${0%/*}
 
 # This script will be executed in late_start service mode
+cp /system/app/NfcNci/NfcNci_bak.apk /system/app/NfcNci/NfcNci.apk
+sleep 30
+cp /system/app/NfcNci/NfcNci_align.apk /system/app/NfcNci/NfcNci.apk
+killall com.android.nfc
