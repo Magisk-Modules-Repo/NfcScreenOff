@@ -134,7 +134,7 @@ on_install() {
   # The following is the default implementation: extract $ZIPFILE/system to $MODPATH
   # Extend/change the logic to whatever you want
   ui_print "- Extracting module files"
-  unzip -o "$ZIPFILE" NfcNci_align.apk -d $MODPATH >&2
+  unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
 
   ui_print "- Backing up original NfcNci.apk"
   cp /system/app/NfcNci/NfcNci.apk $MODPATH/NfcNci_bak.apk
