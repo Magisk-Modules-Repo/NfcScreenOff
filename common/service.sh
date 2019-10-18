@@ -11,13 +11,11 @@ MODDIR=${0%/*}
 # restore original apk
 cp "$MODDIR/NfcNci_bak.apk" /system/app/NfcNci/NfcNci.apk
 
-if [ ! -f "$MODDIR/disable" ]; then
-  # wait for nfc service to start
-  sleep 30
+# wait for nfc service to start
+sleep 30
 
-  # replace original apk
-  cp "$MODDIR/NfcNci_align.apk" /system/app/NfcNci/NfcNci.apk
+# replace original apk
+cp "$MODDIR/NfcNci_align.apk" /system/app/NfcNci/NfcNci.apk
 
-  # restart nfc service
-  killall com.android.nfc
-fi
+# restart nfc service
+killall com.android.nfc
