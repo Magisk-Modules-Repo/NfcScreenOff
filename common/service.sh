@@ -14,8 +14,8 @@ cp "$MODDIR/NfcNci_bak.apk" /system/app/NfcNci/NfcNci.apk
 # wait for nfc service to start
 sleep 30
 
-# replace original apk
-cp "$MODDIR/NfcNci_align.apk" /system/app/NfcNci/NfcNci.apk
+# inject modded apk
+cp "$MODDIR/system/app/NfcNci/NfcNci.apk" /system/app/NfcNci/NfcNci.apk
 
 # restart nfc service
 killall com.android.nfc
