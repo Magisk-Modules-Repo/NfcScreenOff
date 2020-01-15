@@ -1,5 +1,7 @@
 # NFCScreenOff8+
 
+> **This is not a systemless modification.** I succeeded to make it work only if the `modded` APK is injected while the phone is booted with the `original` APK. That is why I inject the `modded` APK in [service.sh](service.sh).
+
 This module lets you enable NFC Pooling while phone is locked and screen is off for Android 8 and above.
 
 > Wait 30 seconds after restarting+unlocking your phone. It will let NFC service time to reload.
@@ -35,8 +37,6 @@ Reboot.
 # Under the hood
 
 I have patched the original `NfcNci.apk` (com/android/nfc/ScreenStateHelper.smali) so that the phone thinks the screen is always on and unlocked. This patch only applies to NFC Service so it does not impact any other functionality of the phone.
-
-I succeeded to make it work only if the `modded` APK is injected while the phone is booted with the `original` APK. That is why I inject the `modded` APK in [service.sh](service.sh).
 
 The modded APK was generated using the method described [here](https://github.com/lapwat/NfcScreenOffPie).
 
