@@ -16,7 +16,7 @@ git clone https://github.com/lapwat/NFCScreenOff.git
 cd NFCScreenOff
 
 # zip the installer
-zip -r NFCScreenOff.zip *
+zip -r NFCScreenOff.zip * -x README.md
 
 # copy to your phone
 adb push NFCScreenOff.zip /sdcard/Download
