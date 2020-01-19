@@ -1,8 +1,8 @@
-# NFCScreenOff8+
+# NFCScreenOff
 
 > **This is not a systemless modification.** I succeeded to make it work only if the `modded` APK is injected while the phone is booted with the `original` APK. That is why I inject the `modded` APK in [service.sh](service.sh).
 
-This module lets you enable NFC Pooling while phone is locked and screen is off for Android 8 and above.
+This module lets you enable NFC Pooling while phone is locked and screen is off for Android 9 and above.
 
 > Wait 30 seconds after restarting+unlocking your phone. It will let NFC service time to reload.
 
@@ -12,14 +12,14 @@ For now, it only works for reading NFC tags, not for payments in stores.
 
 ```sh
 # clone this repo
-git clone https://github.com/lapwat/NFCScreenOff8.git
-cd NFCScreenOff8
+git clone https://github.com/lapwat/NFCScreenOff.git
+cd NFCScreenOff
 
 # zip the installer
-zip -r NFCScreenOff8.zip *
+zip -r NFCScreenOff.zip *
 
 # copy to your phone
-adb push NFCScreenOff8.zip /sdcard/Download
+adb push NFCScreenOff.zip /sdcard/Download
 ```
 
 **If you are creating the zip archive from a GUI, make sure to zip ONLY the files, not the main folder.**

@@ -1,6 +1,6 @@
 id=NFCScreenOff
-name=NFC Screen Off for Android 8+
+name=NFC Screen Off
 version=0.0.1
 versionCode=1
 author=lapwat
-description=Enable NFC Pooling while phone is locked and screen is off for Android 8 and above
+description=Enable NFC Pooling when screen is off for Android 9 and above
