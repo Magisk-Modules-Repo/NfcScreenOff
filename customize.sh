@@ -1,15 +1,25 @@
 #!/system/bin/sh
 
-REPLACE="
-/system/app/NfcNci
-"
-APK_PATH="/system/app/NfcNci/NfcNci.apk"
+APK_NAME_AOSP="NfcNci"
+APK_NAME_ONEPLUS="NxpNfcNci"
 
 [ $API -ge 28 ] || abort "! Your Android version is not compatible."
-[ -f $APK_PATH ] || abort "! Could not find $APK_PATH, your phone may not be compatible with NFC technology."
 
-ui_print "- Backing up original NfcNci.apk"
-cp "$APK_PATH" "$MODPATH/NfcNci_bak.apk"
+if [ -f "/system/app/$APK_NAME_AOSP/$APK_NAME_AOSP.apk" ]; then
+  APK_NAME="$APK_NAME_AOSP"
+elif [ -f "/system/app/$APK_NAME_ONEPLUS/$APK_NAME_ONEPLUS.apk" ]; then
+  APK_NAME="$APK_NAME_ONEPLUS"
+else
+  abort "! Could not find $APK_NAME_AOSP nor $APK_NAME_ONEPLUS, your phone may not be compatible with NFC technology."
+fi
 
-ui_print "- Selecting modded NfcNci.apk based on your API level ($API)."
-mv "$MODPATH/NfcNci${API}_align.apk" "$MODPATH/NfcNci_align.apk"
+APK_PATH="/system/app/$APK_NAME/$APK_NAME.apk"
+REPLACE="
+/system/app/$APK_NAME
+"
+
+ui_print "- Backing up original $APK_NAME.apk"
+cp "$APK_PATH" "$MODPATH/${APK_NAME}_bak.apk"
+
+ui_print "- Selecting modded ${APK_NAME}.apk based on your API level ($API)."
+cp "$MODPATH/${APK_NAME}${API}_align.apk" "$MODPATH/${APK_NAME}_align.apk"
