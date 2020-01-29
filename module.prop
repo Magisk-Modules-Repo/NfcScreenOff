@@ -1,6 +1,6 @@
 id=NFCScreenOff
 name=NFC Screen Off
-version=v0.0.2
-versionCode=2
+version=v0.0.3
+versionCode=3
 author=lapwat
 description=Enable NFC Pooling when screen is off for Android 9 and above
