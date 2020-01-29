@@ -5,9 +5,11 @@ APK_NAME_ONEPLUS="NxpNfcNci"
 
 [ $API -ge 28 ] || abort "! Your Android version is not compatible."
 
-if [ -f "/system/app/$APK_NAME_AOSP/$APK_NAME_AOSP.apk" ]; then
+if [ -d "/system/app/$APK_NAME_AOSP" ]; then
+  ui_print "- Found /system/app/$APK_NAME_AOSP"
   APK_NAME="$APK_NAME_AOSP"
-elif [ -f "/system/app/$APK_NAME_ONEPLUS/$APK_NAME_ONEPLUS.apk" ]; then
+elif [ -d "/system/app/$APK_NAME_ONEPLUS" ]; then
+  ui_print "- Found /system/app/$APK_NAME_ONEPLUS"
   APK_NAME="$APK_NAME_ONEPLUS"
 else
   abort "! Could not find $APK_NAME_AOSP nor $APK_NAME_ONEPLUS, your phone may not be compatible with NFC technology."

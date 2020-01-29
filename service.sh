@@ -4,7 +4,7 @@ MODDIR=${0%/*}
 APK_NAME_AOSP="NfcNci"
 APK_NAME_ONEPLUS="NxpNfcNci"
 
-if [ -f "/system/app/$APK_NAME_AOSP/$APK_NAME_AOSP.apk" ]; then
+if [ -d "/system/app/$APK_NAME_AOSP" ]; then
   APK_NAME="$APK_NAME_AOSP"
 else
   APK_NAME="$APK_NAME_ONEPLUS"
