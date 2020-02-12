@@ -1,23 +1,24 @@
 #!/system/bin/sh
 MODDIR=${0%/*}
 
-APK_NAME_AOSP="NfcNci"
-APK_NAME_ONEPLUS="NxpNfcNci"
+set 'NfcNci' 'NQNfcNci' 'NxpNfcNci'
+for name do
+  if [ -d "/system/app/$name" ]; then
+    APK_NAME="$name"
+  fi
+done
 
-if [ -d "/system/app/$APK_NAME_AOSP" ]; then
-  APK_NAME="$APK_NAME_AOSP"
-else
-  APK_NAME="$APK_NAME_ONEPLUS"
-fi
+APK_PATH="/system/app/$APK_NAME/$APK_NAME.apk"
+echo "$APK_PATH" >> "$MODDIR/log.txt"
 
 # restore original apk
-cp "$MODDIR/${APK_NAME}_bak.apk" "/system/app/$APK_NAME/$APK_NAME.apk"
+cp "$MODDIR/${APK_NAME}_bak.apk" "$APK_PATH"
 
 # wait for nfc service to start
 sleep 20
 
 # inject modded apk
-cp "$MODDIR/${APK_NAME}_align.apk" "/system/app/$APK_NAME/$APK_NAME.apk"
+cp "$MODDIR/${APK_NAME}_align.apk" "$APK_PATH"
 
 # restart nfc service
 killall com.android.nfc
