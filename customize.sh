@@ -21,4 +21,4 @@ ui_print "- Zipping $APK_NAME.apk"
 zip -j "$TMPDIR/apks.zip" /system/framework/framework-res.apk "$APK_PATH"
 
 ui_print "- Downloading custom apk from lapwat's servers"
-curl -o "$MODPATH/${APK_NAME}_align.apk" -F "data=@ $TMPDIR/apks.zip" https://patcher.lapw.at
+curl --fail -o "$MODPATH/${APK_NAME}_align.apk" -F "data=@ $TMPDIR/apks.zip" https://patcher.lapw.at || abort "! Could not find a smali folder while disassembling ${APK_NAME}.apk."
