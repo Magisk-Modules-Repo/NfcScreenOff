@@ -9,16 +9,17 @@ for name do
 done
 
 APK_PATH="/system/app/$APK_NAME/$APK_NAME.apk"
-echo "$APK_PATH" >> "$MODDIR/log.txt"
 
 # restore original apk
-cp "$MODDIR/${APK_NAME}_bak.apk" "$APK_PATH"
+cp "$MODDIR/${APK_NAME}_bak.apk" "$MODDIR/$APK_NAME/$APK_NAME.apk"
+mount --bind "$MODDIR/$APK_NAME" "/system/app/$APK_NAME"
 
 # wait for nfc service to start
 sleep 20
 
 # inject modded apk
-cp "$MODDIR/${APK_NAME}_align.apk" "$APK_PATH"
+cp "$MODDIR/${APK_NAME}_align.apk" "$MODDIR/$APK_NAME/$APK_NAME.apk"
+mount --bind "$MODDIR/$APK_NAME" "/system/app/$APK_NAME"
 
 # restart nfc service
 killall com.android.nfc

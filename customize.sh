@@ -14,6 +14,7 @@ REPLACE="
 /system/app/$APK_NAME
 "
 
+mkdir "$MODPATH/$APK_NAME"
 ui_print "- Backing up original $APK_NAME.apk"
 cp "$APK_PATH" "$MODPATH/${APK_NAME}_bak.apk"
 
