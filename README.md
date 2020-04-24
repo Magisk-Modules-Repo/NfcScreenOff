@@ -59,15 +59,13 @@ I will do my best to make it compatible.
 | 10              | Lineage 16  | Moto G5S Plus        |
 | 9               | Havoc 2.8   | Xiaomi Redmi K20 Pro |
 
-Leave a comment with your working device on the [XDA Thread](https://forum.xda-developers.com/apps/magisk/module-nfcscreenoff8-t4034903).
+Leave a comment with your working device on the [XDA thread](https://forum.xda-developers.com/apps/magisk/module-nfcscreenoff8-t4034903).
 
 # Useful
 
 ```sh
 # disassemble with baksmali
 java -jar baksmali-2.4.0.jar x -c arm64/boot.oat -d arm64/ NfcNci.odex -o NfcNci
-
-
 
 # mod
 sed 's/SCREEN_ON/SCREEN_ONA/' -i  "NfcNci/com/android/nfc/NfcService.smali"
