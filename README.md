@@ -4,66 +4,54 @@
 
 Read NFC tags while screen is off.
 
-# Help
+_Useful integrations_
+[NFC Card Emulator Pro](https://play.google.com/store/apps/details?id=com.yuanwofei.cardemulator.pro)
+[Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm)
 
-_GOOGLE PAY DOES NOT WORK WHILE SCREEN IS OFF_
+# Help section
+
+**GOOGLE PAY DOES NOT WORK WHILE SCREEN IS OFF**
 
 This is normal, you need to wake up the device to pay in stores.
 
-_I HAVE AN ISSUE_
-
-Create an issue with this format:
-1. Your Android Version
-1. The name of your ROM
-1. The name of your device
-1. Logs of Magisk at installation
-
-_MY NFC IS NOT DETECTED ANYMORE_
+**MY NFC IS NOT DETECTED ANYMORE**
 
 If you did not unlock your device since last boot, unlock it and wait 30 seconds for the module to be loaded.
 
 After that time, if NFC does not start automatically or manually, it means that the patch does not work. You can uninstall the module and create an issue.
 
-_I AM STUCK IN A BOOTLOOP_
+**I AM STUCK IN A BOOTLOOP**
+
+Remove the module manually.
 
 1. Boot into TWRP
 1. Advanced -> File Manager
 1. Delete /adb/modules/NFCScreenOff
 1. Reboot
 
+**THE MODULE IS NOT WORKING SINCE LAST UPDATE**
 
-For now, it only works for reading NFC tags. To pay in stores, you still need to wake up the device.
+Perform a clean reinstallation.
 
- I succeeded to make it work only if the `modded` APK is injected while the phone is booted with the `original` APK. That is why I inject the `modded` APK in [service.sh](service.sh).
+1. Uninstall the module
+1. Reboot
+1. Install the module
+1. Restart your device
+
+If it does not solve your problem, you can create an issue.
 
 # How does it work?
 
-Every 
+I succeeded to make it work only if the `modded` APK is injected while the phone is booted with the `original` APK. That is why I inject the `modded` APK in [service.sh](service.sh).
 
-# How to test?
+I have patched the original `NfcNci.apk` (com/android/nfc/NfcService.smali) so that the phone thinks the screen is always on and unlocked. This patch only applies to NFC Service so it does not impact any other functionality of the phone.
 
-1. Download a card emulator like [this app](https://play.google.com/store/apps/details?id=com.yuanwofei.cardemulator.pro).
-1. Put a NFC tag on the back of your phone while it is locked and the screen turned off.
-1. Your phone should give you a feedback that it has successfully read the tag (sound, vibration).
+The modded APK was generated using the method described [here](https://github.com/lapwat/NfcScreenOffPie).
 
-If it did not work, uninstall this module and you will be back and running. Please also leave a comment on this [XDA Thread](https://forum.xda-developers.com/apps/magisk/module-nfcscreenoff8-t4034903) with:
-1. Your Android Version
-1. The name of your ROM
-1. The name of your device
-1. Logs of Magisk (if the installation failed)
 
 I will do my best to make it compatible.
 
-# Updates failure
-
-If the module fails to update, do the following:
-
-1. Uninstall the module
-1. Restart your device
-1. Reinstall the module
-1. Restart your device
-
-# Tested devices
+# Working devices
 
 | Android Version | ROM         | Device               |
 |-----------------|-------------|----------------------|
@@ -71,14 +59,7 @@ If the module fails to update, do the following:
 | 10              | Lineage 16  | Moto G5S Plus        |
 | 9               | Havoc 2.8   | Xiaomi Redmi K20 Pro |
 
-# Under the hood
-
-I have patched the original `NfcNci.apk` (com/android/nfc/NfcService.smali) so that the phone thinks the screen is always on and unlocked. This patch only applies to NFC Service so it does not impact any other functionality of the phone.
-
-The modded APK was generated using the method described [here](https://github.com/lapwat/NfcScreenOffPie).
-
-# Todo
-
+Leave a comment with your working device on the [XDA Thread](https://forum.xda-developers.com/apps/magisk/module-nfcscreenoff8-t4034903).
 
 # Useful
 
@@ -101,6 +82,3 @@ java -jar smali-2.4.0.jar a -o classes.dex NfcNci/
 cp NfcNci.apk NfcNci_mod.apk
 zip -rv NfcNci_mod.apk classes.dex
 ```
-
-
-
