@@ -2,7 +2,7 @@
 
 **This is not a systemless modification.**
 
-Read NFC tags while screen is off.
+Read NFC tags when screen is off.
 
 _Useful integrations_
 [NFC Card Emulator Pro](https://play.google.com/store/apps/details?id=com.yuanwofei.cardemulator.pro)
@@ -10,7 +10,7 @@ _Useful integrations_
 
 # Help section
 
-**GOOGLE PAY DOES NOT WORK WHILE SCREEN IS OFF**
+**GOOGLE PAY DOES NOT WORK WHEN SCREEN IS OFF**
 
 This is normal, you need to wake up the device to pay in stores.
 
