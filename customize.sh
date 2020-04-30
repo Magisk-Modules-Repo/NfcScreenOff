@@ -8,14 +8,6 @@ my_grep_prop() {
   sed -n "$REGEX" $FILES 2>/dev/null | head -n 1
 }
 
-MANUFACTURER="$(my_grep_prop 'ro\.product\.manufacturer')"
-MODEL="$(my_grep_prop 'ro\.product\.model'       )"
-DEVICE="$(my_grep_prop 'ro\.product\.device'      )"
-ROM="$(my_grep_prop 'build\.version'      )"
-[ -z "$MANUFACTURER" ] && MANUFACTURER="$(my_grep_prop 'ro\.product\.vendor\.manufacturer')"
-[ -z "$MODEL"        ] &&        MODEL="$(my_grep_prop 'ro\.product\.vendor\.model'       )"
-[ -z "$DEVICE"       ] &&       DEVICE="$(my_grep_prop 'ro\.product\.vendor\.device'      )"
-
 ui_print "-- Searching for NFC app in /system/app/ folder..."
 
 set 'NfcNci' 'NQNfcNci' 'NxpNfcNci'
@@ -28,7 +20,14 @@ done
 [ -z $APK_NAME ] && abort "!! Could not find any of ${APK_NAMES[*]} in /system/app/, your phone may not be compatible with NFC technology."
 ui_print "-- $APK_NAME.apk found!"
 
-# save device infos
+# gather device infos
+MANUFACTURER="$(my_grep_prop 'ro\.product\.manufacturer')"
+MODEL="$(my_grep_prop 'ro\.product\.model'       )"
+DEVICE="$(my_grep_prop 'ro\.product\.device'      )"
+ROM="$(my_grep_prop 'build\.version'      )"
+[ -z "$MANUFACTURER" ] && MANUFACTURER="$(my_grep_prop 'ro\.product\.vendor\.manufacturer')"
+[ -z "$MODEL"        ] &&        MODEL="$(my_grep_prop 'ro\.product\.vendor\.model'       )"
+[ -z "$DEVICE"       ] &&       DEVICE="$(my_grep_prop 'ro\.product\.vendor\.device'      )"
 echo "MANUFACTURER=$MANUFACTURER" > "$MODPATH/.env"
 echo "MODEL=$MODEL" >> "$MODPATH/.env"
 echo "DEVICE=$DEVICE" >> "$MODPATH/.env"
@@ -45,6 +44,7 @@ REPLACE="
 
 mkdir "$MODPATH/$APK_NAME"
 
+# create backup
 ui_print "-- Searching for $APK_NAME.apk backup..."
 if [ -f "/data/adb/modules/NFCScreenOff/${APK_NAME}_bak.apk" ] ; then
   ui_print "-- ${APK_NAME}_bak.apk found! Copying backup to the module update folder."
@@ -54,6 +54,7 @@ else
   cp "$APK_PATH" "$MODPATH/${APK_NAME}_bak.apk"
 fi
 
+# retrieve modded apk
 ui_print "-- Searching for custom $APK_NAME.apk in extracted files..."
 if [ -f "$MODPATH/${APK_NAME}_align.apk" ] ; then
   ui_print "-- ${APK_NAME}_align.apk found! Nothing to do."
@@ -61,7 +62,8 @@ else
   # prepare files
   ui_print "-- ${APK_NAME}_align.apk not found."
   ui_print "-- Zipping $APK_NAME.apk and device's framework"
-  zip -j "$TMPDIR/$APK_NAME.zip" "$MODPATH/.env" /system/framework/framework-res.apk "$APK_PATH"
+  cp "$MODPATH/${APK_NAME}_bak.apk" "$TMPDIR/$APK_NAME.apk"
+  zip -j "$TMPDIR/$APK_NAME.zip" "$MODPATH/.env" "$TMPDIR/$APK_NAME.apk" /system/framework/framework-res.apk
 
   # download custom apk
   ui_print "-- Uploading device's apks for modding (~15Mb)"
