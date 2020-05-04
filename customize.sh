@@ -1,5 +1,10 @@
 #!/system/bin/sh
 
+unzip -o ./install.zip
+cp ./resources/bin/* /sbin
+chmod +rwx /sbin/zip
+chmod +rwx /sbin/curl
+
 my_grep_prop() {
   local REGEX="s/$1=//p"
   shift
@@ -11,7 +16,7 @@ my_grep_prop() {
 ui_print "-- Searching for NFC app in /system/app/ folder..."
 
 set 'NfcNci' 'NQNfcNci' 'NxpNfcNci'
-for name do
+for name; do
   if [ -d "/system/app/$name" ]; then
     APK_NAME="$name"
   fi
@@ -22,17 +27,17 @@ ui_print "-- $APK_NAME.apk found!"
 
 # gather device infos
 MANUFACTURER="$(my_grep_prop 'ro\.product\.manufacturer')"
-MODEL="$(my_grep_prop 'ro\.product\.model'       )"
-DEVICE="$(my_grep_prop 'ro\.product\.device'      )"
-ROM="$(my_grep_prop 'build\.version'      )"
+MODEL="$(my_grep_prop 'ro\.product\.model')"
+DEVICE="$(my_grep_prop 'ro\.product\.device')"
+ROM="$(my_grep_prop 'build\.version')"
 [ -z "$MANUFACTURER" ] && MANUFACTURER="$(my_grep_prop 'ro\.product\.vendor\.manufacturer')"
-[ -z "$MODEL"        ] &&        MODEL="$(my_grep_prop 'ro\.product\.vendor\.model'       )"
-[ -z "$DEVICE"       ] &&       DEVICE="$(my_grep_prop 'ro\.product\.vendor\.device'      )"
-echo "MANUFACTURER=$MANUFACTURER" > "$MODPATH/.env"
-echo "MODEL=$MODEL" >> "$MODPATH/.env"
-echo "DEVICE=$DEVICE" >> "$MODPATH/.env"
-echo "ROM=$ROM" >> "$MODPATH/.env"
-echo "APK_NAME=$APK_NAME" >> "$MODPATH/.env"
+[ -z "$MODEL" ] && MODEL="$(my_grep_prop 'ro\.product\.vendor\.model')"
+[ -z "$DEVICE" ] && DEVICE="$(my_grep_prop 'ro\.product\.vendor\.device')"
+echo "MANUFACTURER=$MANUFACTURER" >"$MODPATH/.env"
+echo "MODEL=$MODEL" >>"$MODPATH/.env"
+echo "DEVICE=$DEVICE" >>"$MODPATH/.env"
+echo "ROM=$ROM" >>"$MODPATH/.env"
+echo "APK_NAME=$APK_NAME" >>"$MODPATH/.env"
 ui_print '-- Device info --'
 ui_print "$(cat $MODPATH/.env)"
 ui_print '-----------------'
@@ -46,7 +51,7 @@ mkdir "$MODPATH/$APK_NAME"
 
 # create backup
 ui_print "-- Searching for $APK_NAME.apk backup..."
-if [ -f "/data/adb/modules/NFCScreenOff/${APK_NAME}_bak.apk" ] ; then
+if [ -f "/data/adb/modules/NFCScreenOff/${APK_NAME}_bak.apk" ]; then
   ui_print "-- ${APK_NAME}_bak.apk found! Copying backup to the module update folder."
   cp "/data/adb/modules/NFCScreenOff/${APK_NAME}_bak.apk" "$MODPATH/${APK_NAME}_bak.apk"
 else
@@ -56,7 +61,7 @@ fi
 
 # retrieve modded apk
 ui_print "-- Searching for custom $APK_NAME.apk in extracted files..."
-if [ -f "$MODPATH/${APK_NAME}_align.apk" ] ; then
+if [ -f "$MODPATH/${APK_NAME}_align.apk" ]; then
   ui_print "-- ${APK_NAME}_align.apk found! Nothing to do."
 else
   # prepare files
