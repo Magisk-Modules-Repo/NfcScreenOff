@@ -1,6 +1,6 @@
 id=NFCScreenOff
 name=NFC Screen Off
-version=v0.2.0
-versionCode=20
+version=v0.2.1
+versionCode=21
 author=lapwat
 description=Read NFC tags when screen is off. [BETA] Tap to pay when screen is off.
