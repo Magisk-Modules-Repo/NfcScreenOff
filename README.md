@@ -2,8 +2,6 @@
 
 Read NFC tags when screen is off.
 
-[BETA] Tap to pay when screen is off.
-
 _Useful integrations: [NFC Card Emulator Pro](https://play.google.com/store/apps/details?id=com.yuanwofei.cardemulator.pro) - [Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm)_
 
 # How does it work?
