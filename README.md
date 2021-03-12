@@ -1,6 +1,6 @@
 # NFCScreenOff
 
-Read NFC tags when screen is off.
+Read NFC tags when screen is off. Disable NFC tagging sound.
 
 _Useful integrations: [NFC Card Emulator Pro](https://play.google.com/store/apps/details?id=com.yuanwofei.cardemulator.pro) - [Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm)_
 
@@ -31,12 +31,6 @@ Perform a clean reinstallation.
 1. Reboot
 
 If it does not solve your problem, you can create an issue.
-
-**TAP TO PAY DOES NOT WORK WHEN SCREEN IS OFF**
-
-This is normal, you need to wake up the device to pay in stores.
-
-_Tap to pay functionality is now in BETA so it may work for some devices._
 
 **MY NFC IS NOT DETECTED ANYMORE**
 
