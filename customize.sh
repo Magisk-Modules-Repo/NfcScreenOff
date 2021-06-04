@@ -23,14 +23,19 @@ create_backup() {
   fi
 }
 
-ui_print "-- Searching for NFC app in /system/app/ folder..."
+ui_print "-- Searching for NFC app in /system/app/ and /system/system_ext/app/ folders..."
 set 'NfcNci' 'NQNfcNci' 'NxpNfcNci'
 for name do
   if [ -d "/system/app/$name" ]; then
     APK_NAME="$name"
+    APK_PATH="/system/app/$APK_NAME/$APK_NAME.apk"
+  fi
+  if [ -d "/system/system_ext/app/$name" ]; then
+    APK_NAME="$name"
+    APK_PATH="/system/system_ext/app/$APK_NAME/$APK_NAME.apk"
   fi
 done
-[ -z $APK_NAME ] && abort "!! Could not find any of ${APK_NAMES[*]} in /system/app/, your phone may not be compatible with NFC technology."
+[ -z $APK_NAME ] && abort "!! Could not find any of ${APK_NAMES[*]} in /system/app/ or /system/system_ext/app/, your phone may not be compatible with NFC technology."
 ui_print "-- $APK_NAME.apk found!"
 
 # save device infos
@@ -48,10 +53,10 @@ ui_print '-- Device info --'
 ui_print "$(cat $MODPATH/.env)"
 ui_print '-----------------'
 
-APK_PATH="/system/app/$APK_NAME/$APK_NAME.apk"
+# APK_PATH="/system/app/$APK_NAME/$APK_NAME.apk"
 APK_DIR="$(dirname $APK_PATH)"
 REPLACE="
-/system/app/$APK_NAME
+$APK_DIR
 "
 mkdir "$MODPATH/$APK_NAME"
 
