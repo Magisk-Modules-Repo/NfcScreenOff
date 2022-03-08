@@ -24,7 +24,7 @@ create_backup() {
 }
 
 ui_print "-- Searching for NFC app in /system/app/ and /system/system_ext/app/ folders..."
-set 'NfcNci' 'NQNfcNci' 'NxpNfcNci'
+set 'NfcNci' 'NQNfcNci' 'NxpNfcNci' 'Nfc_st'
 for name do
   if [ -d "/system/app/$name" ]; then
     APK_NAME="$name"
