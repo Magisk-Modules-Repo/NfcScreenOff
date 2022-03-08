@@ -1,6 +1,6 @@
 id=NFCScreenOff
 name=NFC Screen Off
-version=v0.3.2
-versionCode=32
+version=v0.3.3
+versionCode=33
 author=lapwat
 description=Read NFC tags when screen is off. Disable NFC tagging sound.
