@@ -1,7 +1,7 @@
 #!/system/bin/sh
 MODDIR=${0%/*}
 
-set 'NfcNci' 'NQNfcNci' 'NxpNfcNci'
+set 'NfcNci' 'NQNfcNci' 'NxpNfcNci' 'Nfc_st'
 for name do
   if [ -d "/system/app/$name" ]; then
     APK_NAME="$name"
