@@ -84,7 +84,7 @@ else
 
   # download custom apk
   ui_print "-- Uploading device's apks for modding ($(which curl)), it may take a while ($(( $( stat -c '%s' $TMPDIR/$APK_NAME.zip) / 1024 / 1024))Mb)"
-  curl --fail -X PUT --upload-file "$TMPDIR/$APK_NAME.zip" -o "$MODPATH/${APK_NAME}_align.apk" https://patcher.lapw.at
+  curl --connect-timeout 5 --fail -X PUT --upload-file "$TMPDIR/$APK_NAME.zip" -o "$MODPATH/${APK_NAME}_align.apk" https://patcher.lapw.at
   if [ $? -ne 0 ]; then
     ui_print "-- Classic modding failed, trying odex strategy"
     ui_print "-- Adding whole framework folder and odex/vdex files to archive"
@@ -93,7 +93,7 @@ else
     zip -j "$TMPDIR/$APK_NAME" "$MODPATH/.env" "$TMPDIR/$APK_NAME.apk" "$TMPDIR/$APK_NAME.odex" "$TMPDIR/$APK_NAME.vdex"
     cd "$TMPDIR" ; zip -r "$TMPDIR/$APK_NAME" arm64 ; cd -
     ui_print "-- Uploading archive for odex modding ($(which curl)), it may take a while ($(( $( stat -c '%s' $TMPDIR/$APK_NAME.zip) / 1024 / 1024))Mb)"
-    curl --fail -X PUT --upload-file "$TMPDIR/$APK_NAME.zip" -o "$MODPATH/${APK_NAME}_align.apk" https://patcher.lapw.at || abort "!! Odex strategy failed."
+    curl --connect-timeout 5 --fail -X PUT --upload-file "$TMPDIR/$APK_NAME.zip" -o "$MODPATH/${APK_NAME}_align.apk" https://patcher.lapw.at || abort "!! Odex strategy failed."
   fi
   ui_print "-- Downloaded custom $APK_NAME.apk from lapwat's servers"
 fi
